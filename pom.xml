@@ -76,6 +76,11 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         <url>http://www.ea.com</url>
     </organization>
 
+    <modules>
+        <module>dsl/parser</module>
+        <module>dsl/compiler</module>
+    </modules>
+
     <repositories>
         <repository>
             <id>sonatype-nexus-snapshots</id>
