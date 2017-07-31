@@ -30,6 +30,7 @@ grammar OrbitDSL;
 compilationUnit:
         packageDeclaration
         importDelcaration*
+        EOF
     ;
 
 packageDeclaration: 'package' packageIdentifier ';';
@@ -41,6 +42,7 @@ IntegralNumber: Digit+;
 
 Whitespace: (Tab|Space|Newline) -> skip;
 Comment: (LineComment|BlockComment) -> skip;
+
 
 fragment LetterOrDigit: Letter | Digit;
 fragment Letter: LowercaseLetter | UppercaseLetter;
