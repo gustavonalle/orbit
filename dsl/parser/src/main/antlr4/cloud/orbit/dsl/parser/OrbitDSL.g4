@@ -40,8 +40,8 @@ packageIdentifier: Identifier | packageIdentifier '.' Identifier;
 Identifier: Letter LetterOrDigit*;
 IntegralNumber: Digit+;
 
-Whitespace: (Tab|Space|Newline) -> skip;
-Comment: (LineComment|BlockComment) -> skip;
+Whitespace: (Tab | Space | Newline) -> skip;
+Comment: (LineComment | BlockComment) -> skip;
 
 
 fragment LetterOrDigit: Letter | Digit;
