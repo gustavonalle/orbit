@@ -25,7 +25,6 @@
  THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-
 grammar OrbitDSL;
 
 compilationUnit:
@@ -38,15 +37,16 @@ importDelcaration: 'import' packageIdentifier ';';
 packageIdentifier: Identifier | packageIdentifier '.' Identifier;
 
 Identifier: Letter LetterOrDigit*;
+IntegralNumber: Digit+;
 
 Whitespace: (Tab|Space|Newline) -> skip;
 Comment: (LineComment|BlockComment) -> skip;
 
-fragment Letter: LowercaseLetter | UppsercaseLetter;
-fragment LowercaseLetter: [a-z];
-fragment UppsercaseLetter: [A-Z];
-fragment Digit: [0-9];
 fragment LetterOrDigit: Letter | Digit;
+fragment Letter: LowercaseLetter | UppercaseLetter;
+fragment LowercaseLetter: [a-z];
+fragment UppercaseLetter: [A-Z];
+fragment Digit: [0-9];
 fragment Newline: ('\r'? '\n' | '\r');
 fragment Space: ' ';
 fragment Tab: '\t';
