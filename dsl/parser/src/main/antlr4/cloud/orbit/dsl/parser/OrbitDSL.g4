@@ -40,10 +40,15 @@ packageIdentifier: Identifier | packageIdentifier '.' Identifier;
 Identifier: Letter LetterOrDigit*;
 
 Whitespace: (Tab|Space|Newline) -> skip;
+Comment: (LineComment|BlockComment) -> skip;
 
-fragment Newline: ('\r'? '\n' | '\r');
-fragment Letter: [a-z] | [A-Z];
+fragment Letter: LowercaseLetter | UppsercaseLetter;
+fragment LowercaseLetter: [a-z];
+fragment UppsercaseLetter: [A-Z];
 fragment Digit: [0-9];
 fragment LetterOrDigit: Letter | Digit;
+fragment Newline: ('\r'? '\n' | '\r');
 fragment Space: ' ';
 fragment Tab: '\t';
+fragment LineComment: '//' ~[\r\n]*;
+fragment BlockComment: '/*' .*? '*/';
