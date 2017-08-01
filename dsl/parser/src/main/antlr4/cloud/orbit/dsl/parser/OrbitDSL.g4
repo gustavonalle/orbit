@@ -43,7 +43,9 @@ grainDeclaration: 'grain' Identifier grainBody;
 grainBody: '{' '}';
 
 objectDeclaration: 'object' Identifier objectBody;
-objectBody: '{' '}';
+objectBody: '{' objectFields? '}';
+objectFields: objectField | objectField (',' objectField)*;
+objectField: type Identifier '=' IntegerLiteral ';';
 
 enumDeclaration: 'enum' Identifier enumBody;
 enumBody: '{' enumFields? '}';
@@ -53,10 +55,12 @@ enumField: Identifier '=' IntegerLiteral;
 packageIdentifier: Identifier | packageIdentifier '.' Identifier;
 
 literal: StringLiteral | IntegerLiteral | BooleanLiteral;
+type: BuiltinType | Identifier;
 
 StringLiteral: '"' StringCharacters? '"';
 IntegerLiteral: Digit+;
 BooleanLiteral: 'true' | 'false';
+BuiltinType: 'int';
 
 Identifier: IdentValidFirstChar IdentValidTrailingChar*;
 
