@@ -30,21 +30,21 @@ grammar OrbitDSL;
 compilationUnit:
         packageDeclaration
         (importDelcaration | optionDeclaration)*
-        typeDeclaration*
+        topLeveltypeDeclaration*
         EOF
     ;
 
 packageDeclaration: 'package' packageIdentifier ';';
 importDelcaration: 'import' packageIdentifier ';';
 optionDeclaration: 'option' Identifier '=' literal ';';
-typeDeclaration: grainDeclaration | objectDeclaration | enumDeclaration;
+topLeveltypeDeclaration: grainDeclaration | objectDeclaration | enumDeclaration;
 
 grainDeclaration: 'grain' Identifier grainBody;
 grainBody: '{' '}';
 
 objectDeclaration: 'object' Identifier objectBody;
 objectBody: '{' objectFields? '}';
-objectFields: objectField | objectField (',' objectField)*;
+objectFields: objectField*;
 objectField: type Identifier '=' IntegerLiteral ';';
 
 enumDeclaration: 'enum' Identifier enumBody;
@@ -55,12 +55,11 @@ enumField: Identifier '=' IntegerLiteral;
 packageIdentifier: Identifier | packageIdentifier '.' Identifier;
 
 literal: StringLiteral | IntegerLiteral | BooleanLiteral;
-type: BuiltinType | Identifier;
+type: Identifier;
 
 StringLiteral: '"' StringCharacters? '"';
 IntegerLiteral: Digit+;
 BooleanLiteral: 'true' | 'false';
-BuiltinType: 'int';
 
 Identifier: IdentValidFirstChar IdentValidTrailingChar*;
 
