@@ -29,28 +29,55 @@ grammar OrbitDSL;
 
 compilationUnit:
         packageDeclaration
-        importDelcaration*
+        (importDelcaration | optionDeclaration)*
+        typeDeclaration*
         EOF
     ;
 
 packageDeclaration: 'package' packageIdentifier ';';
 importDelcaration: 'import' packageIdentifier ';';
+optionDeclaration: 'option' Identifier '=' literal ';';
+typeDeclaration: grainDeclaration | objectDeclaration | enumDeclaration;
+
+grainDeclaration: 'grain' Identifier grainBody;
+grainBody: '{' '}';
+
+objectDeclaration: 'object' Identifier objectBody;
+objectBody: '{' '}';
+
+enumDeclaration: 'enum' Identifier enumBody;
+enumBody: '{' '}';
+
 packageIdentifier: Identifier | packageIdentifier '.' Identifier;
 
-Identifier: Letter LetterOrDigit*;
-IntegralNumber: Digit+;
+literal: StringLiteral | IntegerLiteral | BooleanLiteral;
+
+StringLiteral: '"' StringCharacters? '"';
+IntegerLiteral: Digit+;
+BooleanLiteral: 'true' | 'false';
+
+Identifier: IdentValidFirstChar IdentValidTrailingChar*;
 
 Whitespace: (Tab | Space | Newline) -> skip;
 Comment: (LineComment | BlockComment) -> skip;
 
+fragment IdentValidTrailingChar: LetterOrDigit | Underscore;
+fragment IdentValidFirstChar: Letter | Underscore;
+
+fragment StringCharacters: StringCharacter+;
+fragment StringCharacter: ~["\\\r\n] | EscapeSequence;
+fragment EscapeSequence: '\\' [btnfr"'\\];
 
 fragment LetterOrDigit: Letter | Digit;
 fragment Letter: LowercaseLetter | UppercaseLetter;
 fragment LowercaseLetter: [a-z];
 fragment UppercaseLetter: [A-Z];
 fragment Digit: [0-9];
+fragment Underscore: '_';
+
 fragment Newline: ('\r'? '\n' | '\r');
 fragment Space: ' ';
 fragment Tab: '\t';
+
 fragment LineComment: '//' ~[\r\n]*;
 fragment BlockComment: '/*' .*? '*/';
