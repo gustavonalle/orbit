@@ -46,7 +46,9 @@ objectDeclaration: 'object' Identifier objectBody;
 objectBody: '{' '}';
 
 enumDeclaration: 'enum' Identifier enumBody;
-enumBody: '{' '}';
+enumBody: '{' enumFields? '}';
+enumFields: enumField | enumField (',' enumField)*;
+enumField: Identifier '=' IntegerLiteral;
 
 packageIdentifier: Identifier | packageIdentifier '.' Identifier;
 
