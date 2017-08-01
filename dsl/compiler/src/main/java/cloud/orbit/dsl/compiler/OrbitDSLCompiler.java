@@ -28,6 +28,21 @@
 
 package cloud.orbit.dsl.compiler;
 
-public class OrbitDSLCompiler {
+import cloud.orbit.dsl.parser.OrbitDSLLexer;
+import cloud.orbit.dsl.parser.OrbitDSLParser;
+import org.antlr.v4.runtime.*;
 
+public class OrbitDSLCompiler {
+    public static void main(final String[] meep) {
+
+
+        OrbitDSLLexer lexer = new OrbitDSLLexer(CharStreams.fromString("package test;"));
+        CommonTokenStream commonTokenStream = new CommonTokenStream(lexer);
+        OrbitDSLParser parser = new OrbitDSLParser(commonTokenStream);
+
+        String packageName = parser.compilationUnit().packageDeclaration().packageIdentifier().getText();
+        //parser.compilationUnit().packageDeclaration().packageIdentifier().Identifier().getSymbol().getText();
+        System.out.println(packageName);
+
+    }
 }

@@ -29,4 +29,5 @@ module cloud.orbit.dsl.compilers {
     exports cloud.orbit.dsl.compiler;
 
     requires cloud.orbit.dsl.parser;
+    requires antlr4.runtime;
 }
